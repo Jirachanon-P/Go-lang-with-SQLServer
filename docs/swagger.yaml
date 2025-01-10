@@ -1,0 +1,206 @@
+definitions:
+  Models.Note:
+    properties:
+      content:
+        type: string
+      id:
+        type: integer
+      isDelete:
+        type: boolean
+      title:
+        type: string
+    type: object
+  Models.Response:
+    properties:
+      code:
+        description: Response Code
+        type: integer
+      status:
+        description: Response Status
+        type: string
+    type: object
+info:
+  contact:
+    email: support@somewhere.com
+    name: API Support
+    url: http://somewhere.com/support
+  description: Test Golog Swagger
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://somewhere.com/
+  title: Teat Golang Swagger API
+  version: "1.0"
+paths:
+  /note-api/note:
+    get:
+      consumes:
+      - application/json
+      description: Get all notes
+      operationId: GetAllNotes
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Models.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Models.Response'
+      summary: GET All Notes
+      tags:
+      - Note
+    post:
+      consumes:
+      - application/json
+      description: Create Note
+      operationId: CreateNote
+      parameters:
+      - description: Note data to be create
+        in: body
+        name: Note
+        required: true
+        schema:
+          $ref: '#/definitions/Models.Note'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Models.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Models.Response'
+      summary: Create Note
+      tags:
+      - Note
+  /note-api/note/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Note
+      operationId: DeleteNote
+      parameters:
+      - description: id of note to be delete
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Models.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Models.Response'
+      summary: Delete Note
+      tags:
+      - Note
+    get:
+      consumes:
+      - application/json
+      description: Get NoteBy Id
+      operationId: GetNoteById
+      parameters:
+      - description: id of note
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Models.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Models.Response'
+      summary: Get NoteBy Id
+      tags:
+      - Note
+    put:
+      consumes:
+      - application/json
+      description: Update Note
+      operationId: UpdateNote
+      parameters:
+      - description: id of note to be update
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Note data to update
+        in: body
+        name: Note
+        required: true
+        schema:
+          $ref: '#/definitions/Models.Note'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Models.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Models.Response'
+      summary: Update Note
+      tags:
+      - Note
+schemes:
+- http
+- https
+swagger: "2.0"
