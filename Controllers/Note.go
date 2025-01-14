@@ -17,10 +17,7 @@ import (
 // @accept json
 // @produce json
 // @response 200 {object} Models.Response "OK"
-// @response 400 {object} Models.Response "Bad Request"
-// @response 401 {object} Models.Response "Unauthorized"
-// @response 500 {object} Models.Response "Internal Server Error"
-// @Router /note-api/note [get]
+// @Router /note [get]
 func GetAllNotes(c *gin.Context) {
 	var notes []Models.Note
 	err := Models.GetAllNote(&notes)
@@ -41,10 +38,7 @@ func GetAllNotes(c *gin.Context) {
 // @produce json
 // @param Note body Models.Note true "Note data to be create"
 // @response 200 {object} Models.Response "OK"
-// @response 400 {object} Models.Response "Bad Request"
-// @response 401 {object} Models.Response "Unauthorized"
-// @response 500 {object} Models.Response "Internal Server Error"
-// @Router /note-api/note [post]
+// @Router /note [post]
 func CreateNote(c *gin.Context) {
 	var notes Models.Note
 	c.BindJSON(&notes)
@@ -66,10 +60,7 @@ func CreateNote(c *gin.Context) {
 // @produce json
 // @param id path string true "id of note"
 // @response 200 {object} Models.Response "OK"
-// @response 400 {object} Models.Response "Bad Request"
-// @response 401 {object} Models.Response "Unauthorized"
-// @response 500 {object} Models.Response "Internal Server Error"
-// @Router /note-api/note/{id} [get]
+// @Router /note/{id} [get]
 func GetNoteById(c *gin.Context) {
 	idStr := c.Params.ByName("id")
 	var note Models.Note
@@ -99,11 +90,7 @@ func GetNoteById(c *gin.Context) {
 // @produce json
 // @param id path string true "id of note to be update"
 // @param Note body Models.Note true "Note data to update"
-// @response 200 {object} Models.Response "OK"
-// @response 400 {object} Models.Response "Bad Request"
-// @response 401 {object} Models.Response "Unauthorized"
-// @response 500 {object} Models.Response "Internal Server Error"
-// @Router /note-api/note/{id} [put]
+// @Router /note/{id} [put]
 func UpdateNote(c *gin.Context) {
 	var note Models.Note
 	idStr := c.Params.ByName("id")
@@ -140,11 +127,7 @@ func UpdateNote(c *gin.Context) {
 // @accept json
 // @produce json
 // @param id path string true "id of note to be delete"
-// @response 200 {object} Models.Response "OK"
-// @response 400 {object} Models.Response "Bad Request"
-// @response 401 {object} Models.Response "Unauthorized"
-// @response 500 {object} Models.Response "Internal Server Error"
-// @Router /note-api/note/{id} [delete]
+// @Router /note/{id} [delete]
 func DeleteNote(c *gin.Context) {
 	var user Models.Note
 	idStr := c.Params.ByName("id")

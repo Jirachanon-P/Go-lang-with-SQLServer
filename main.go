@@ -31,6 +31,12 @@ var err error
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
 // @schemes http https
+
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
+
+// @BasePath /api/v1
 func main() {
 	dsn := Config.DbURL(Config.BuildDBConfig())
 	fmt.Print(Config.DbURL(Config.BuildDBConfig()))

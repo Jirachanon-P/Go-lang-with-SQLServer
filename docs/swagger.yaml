@@ -1,4 +1,12 @@
+basePath: /api/v1
 definitions:
+  Controllers.UserLogin:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
   Models.Note:
     properties:
       content:
@@ -15,8 +23,23 @@ definitions:
       code:
         description: Response Code
         type: integer
+      data:
+        description: Response Data
       status:
         description: Response Status
+        type: string
+    type: object
+  Models.User:
+    properties:
+      id:
+        type: integer
+      isDelete:
+        type: boolean
+      password:
+        type: string
+      role:
+        type: string
+      username:
         type: string
     type: object
 info:
@@ -32,7 +55,26 @@ info:
   title: Teat Golang Swagger API
   version: "1.0"
 paths:
-  /note-api/note:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Login
+      operationId: Login
+      parameters:
+      - description: Username & Password
+        in: body
+        name: LoginForm
+        required: true
+        schema:
+          $ref: '#/definitions/Controllers.UserLogin'
+      produces:
+      - application/json
+      responses: {}
+      summary: Login
+      tags:
+      - Authentication
+  /note:
     get:
       consumes:
       - application/json
@@ -43,18 +85,6 @@ paths:
       responses:
         "200":
           description: OK
-          schema:
-            $ref: '#/definitions/Models.Response'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/Models.Response'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/Models.Response'
-        "500":
-          description: Internal Server Error
           schema:
             $ref: '#/definitions/Models.Response'
       summary: GET All Notes
@@ -79,22 +109,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/Models.Response'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/Models.Response'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/Models.Response'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/Models.Response'
       summary: Create Note
       tags:
       - Note
-  /note-api/note/{id}:
+  /note/{id}:
     delete:
       consumes:
       - application/json
@@ -108,23 +126,7 @@ paths:
         type: string
       produces:
       - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/Models.Response'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/Models.Response'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/Models.Response'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/Models.Response'
+      responses: {}
       summary: Delete Note
       tags:
       - Note
@@ -144,18 +146,6 @@ paths:
       responses:
         "200":
           description: OK
-          schema:
-            $ref: '#/definitions/Models.Response'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/Models.Response'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/Models.Response'
-        "500":
-          description: Internal Server Error
           schema:
             $ref: '#/definitions/Models.Response'
       summary: Get NoteBy Id
@@ -180,27 +170,114 @@ paths:
           $ref: '#/definitions/Models.Note'
       produces:
       - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/Models.Response'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/Models.Response'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/Models.Response'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/Models.Response'
+      responses: {}
       summary: Update Note
       tags:
       - Note
+  /user:
+    get:
+      consumes:
+      - application/json
+      description: Get All Users
+      operationId: GetAllUsers
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Get All Users
+      tags:
+      - User
+    post:
+      consumes:
+      - application/json
+      description: Create User
+      operationId: CreateUser
+      parameters:
+      - description: User data to create
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/Models.User'
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Create User
+      tags:
+      - User
+  /user/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete User
+      operationId: DeleteUser
+      parameters:
+      - description: id of user to be delete
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Delete User
+      tags:
+      - User
+    get:
+      consumes:
+      - application/json
+      description: Get UserBy Id
+      operationId: GetUserById
+      parameters:
+      - description: id of user
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Get UserBy Id
+      tags:
+      - User
+    put:
+      consumes:
+      - application/json
+      description: Update User
+      operationId: UpdateUser
+      parameters:
+      - description: id of user to be update
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: User data to update
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/Models.User'
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Update User
+      tags:
+      - User
 schemes:
 - http
 - https
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"
